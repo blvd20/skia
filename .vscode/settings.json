@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "filesystem": "cpp",
+    "string": "cpp",
+    "__functional_03": "cpp",
+    "functional": "cpp"
+  },
+}
