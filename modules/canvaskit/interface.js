@@ -775,6 +775,11 @@ CanvasKit.onRuntimeInitialized = function() {
     return ta.slice();
   };
 
+  CanvasKit.ImageFilter.MakeDropShadow = function(dx, dy, sx, sy, color4f, input) {
+    var cPtr = copyColorToWasm(color4f);
+    return CanvasKit.ImageFilter._MakeDropShadow(dx, dy, sx, sy, cPtr, input);
+  }
+
   CanvasKit.ImageFilter.MakeMatrixTransform = function(matrix, sampling, input) {
     var matrPtr = copy3x3MatrixToWasm(matrix);
 

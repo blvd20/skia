@@ -1348,6 +1348,10 @@ EMSCRIPTEN_BINDINGS(Skia) {
                                                                 sk_sp<SkImageFilter> input)->sk_sp<SkImageFilter> {
             return SkImageFilters::ColorFilter(cf, input);
         }))
+        .class_function("_MakeDropShadow", optional_override([](SkScalar dx, SkScalar dy, SkScalar sigmaX, SkScalar sigmaY, WASMPointerF32 cPtr,
+                                                                sk_sp<SkImageFilter> input)->sk_sp<SkImageFilter> {
+            return SkImageFilters::DropShadow(dx, dy, sigmaX, sigmaY, ptrToSkColor4f(cPtr).toSkColor(), input);
+        }))
         .class_function("MakeCompose", &SkImageFilters::Compose)
         .class_function("_MakeMatrixTransformCubic",
                         optional_override([](WASMPointerF32 mPtr, float B, float C,

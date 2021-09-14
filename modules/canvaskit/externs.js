@@ -405,6 +405,8 @@ var CanvasKit = {
   ImageFilter: {
     MakeBlur: function() {},
     MakeColorFilter: function() {},
+    MakeDropShadow: function() {},
+    _MakeDropShadow: function() {},
     MakeCompose: function() {},
     MakeMatrixTransform: function() {},
 
