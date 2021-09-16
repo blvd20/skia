@@ -2162,6 +2162,8 @@ public:
 
     void private_draw_shadow_rec(const SkPath&, const SkDrawShadowRec&);
 
+    void drawTextBlobOnPath(const SkTextBlob* blob, SkScalar x, SkScalar y, SkPath& path);
+
 
 protected:
     // default impl defers to getDevice()->newSurface(info)

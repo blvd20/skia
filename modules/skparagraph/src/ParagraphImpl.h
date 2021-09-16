@@ -3,6 +3,7 @@
 #define ParagraphImpl_DEFINED
 
 #include "include/core/SkFont.h"
+#include "include/core/SkPath.h"
 #include "include/core/SkPaint.h"
 #include "include/core/SkPicture.h"
 #include "include/core/SkPoint.h"
@@ -113,6 +114,7 @@ public:
     ~ParagraphImpl() override;
 
     void layout(SkScalar width) override;
+    SkPath getPath(SkCanvas& canvas) override;
     void paint(SkCanvas* canvas, SkScalar x, SkScalar y) override;
     std::vector<TextBox> getRectsForRange(unsigned start,
                                           unsigned end,

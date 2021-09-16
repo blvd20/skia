@@ -1096,5 +1096,22 @@ void ParagraphImpl::visit(const Visitor& visitor) {
     }
 }
 
+SkPath ParagraphImpl::getPath(SkCanvas& canvas) {
+
+    SkPath path;
+
+    for (auto& line : fLines) {
+        line.ensureTextBlobCachePopulated();
+
+        for (auto& record : line.fTextBlobCache) {
+            SkRect recordBounds = record.fBounds;
+            auto offset = record.fOffset;
+            canvas.drawTextBlobOnPath(record.fBlob.get(), offset.fX, offset.fY, path);
+        }
+    }
+
+    return path;
+}
+
 }  // namespace textlayout
 }  // namespace skia
