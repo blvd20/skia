@@ -541,6 +541,13 @@ EMSCRIPTEN_BINDINGS(Paragraph) {
                           ts.setBackgroundColor(background);
                           self.pushStyle(ts);
                       }))
+            .function("_pushFgPaintStyle",
+                      optional_override([](para::ParagraphBuilderImpl& self,
+                                           SimpleTextStyle textStyle, SkPaint foreground) {
+                          auto ts = toTextStyle(textStyle);
+                          ts.setForegroundColor(foreground);
+                          self.pushStyle(ts);
+                      }))
             .function("_addPlaceholder", optional_override([](para::ParagraphBuilderImpl& self,
                                                               SkScalar width,
                                                               SkScalar height,

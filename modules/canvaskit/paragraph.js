@@ -299,6 +299,12 @@
       freeArrays(textStyle);
     };
 
+    CanvasKit.ParagraphBuilder.prototype.pushFgPaintStyle = function(textStyle, fg) {
+      copyArrays(textStyle);
+      this._pushFgPaintStyle(textStyle, fg);
+      freeArrays(textStyle);
+    };
+
     CanvasKit.ParagraphBuilder.prototype.addPlaceholder =
           function(width, height, alignment, baseline, offset) {
       width = width || 0;

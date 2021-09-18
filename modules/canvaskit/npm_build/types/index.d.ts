@@ -916,6 +916,7 @@ export interface ParagraphBuilder extends EmbindObject<ParagraphBuilder> {
      * @param bg
      */
     pushPaintStyle(textStyle: TextStyle, fg: Paint, bg: Paint): void;
+    pushFgPaintStyle(textStyle: TextStyle, fg: Paint): void;
 }
 
 export interface ParagraphStyle {
@@ -3206,6 +3207,8 @@ export interface ImageFilterFactory {
      */
     MakeBlur(sigmaX: number, sigmaY: number, mode: TileMode,
              input: ImageFilter | null): ImageFilter;
+
+    MakeDropShadow(offsetX: number, offsetY: number, sigmaX: number, sigmaY: number, color: Color, input: ImageFilter | null): ImageFilter;
 
     /**
      * Create a filter that applies the color filter to the input filter results.
