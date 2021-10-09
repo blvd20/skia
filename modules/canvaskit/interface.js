@@ -463,6 +463,11 @@ CanvasKit.onRuntimeInitialized = function() {
     this._clipRect(rPtr, op, antialias);
   };
 
+  CanvasKit.Canvas.prototype.quickReject = function(rect) {
+    var rPtr = copyRectToWasm(rect);
+    return this._quickReject(rPtr);
+  };
+
   // concat takes a 3x2, a 3x3, or a 4x4 matrix and upscales it (if needed) to 4x4. This is because
   // under the hood, SkCanvas uses a 4x4 matrix.
   CanvasKit.Canvas.prototype.concat = function(matr) {

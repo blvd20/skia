@@ -848,6 +848,10 @@ EMSCRIPTEN_BINDINGS(Skia) {
             const SkRect* rect = reinterpret_cast<const SkRect*>(fPtr);
             self.clipRect(*rect, op, doAntiAlias);
         }))
+        .function("_quickReject", optional_override([](SkCanvas& self, WASMPointerF32 fPtr) -> bool {
+            const SkRect* rect = reinterpret_cast<const SkRect*>(fPtr);
+            return self.quickReject(*rect);
+        }))
         .function("_concat", optional_override([](SkCanvas& self, WASMPointerF32 mPtr) {
             //TODO(skbug.com/10108): make the JS side be column major.
             const SkScalar* sixteenMatrixValues = reinterpret_cast<const SkScalar*>(mPtr);
@@ -1348,10 +1352,6 @@ EMSCRIPTEN_BINDINGS(Skia) {
                                                                 sk_sp<SkImageFilter> input)->sk_sp<SkImageFilter> {
             return SkImageFilters::ColorFilter(cf, input);
         }))
-        .class_function("_MakeDropShadow", optional_override([](SkScalar dx, SkScalar dy, SkScalar sigmaX, SkScalar sigmaY, WASMPointerF32 cPtr,
-                                                                sk_sp<SkImageFilter> input)->sk_sp<SkImageFilter> {
-            return SkImageFilters::DropShadow(dx, dy, sigmaX, sigmaY, ptrToSkColor4f(cPtr).toSkColor(), input);
-        }))
         .class_function("MakeCompose", &SkImageFilters::Compose)
         .class_function("_MakeMatrixTransformCubic",
                         optional_override([](WASMPointerF32 mPtr, float B, float C,
@@ -1364,6 +1364,29 @@ EMSCRIPTEN_BINDINGS(Skia) {
                                              sk_sp<SkImageFilter> input)->sk_sp<SkImageFilter> {
             OptionalMatrix matr(mPtr);
             return SkImageFilters::MatrixTransform(matr, SkSamplingOptions(fm, mm), input);
+        }))
+        .class_function("_MakeDropShadow", optional_override([](SkScalar dx, SkScalar dy, SkScalar sigmaX, SkScalar sigmaY, WASMPointerF32 cPtr,
+                                                                sk_sp<SkImageFilter> input)->sk_sp<SkImageFilter> {
+            return SkImageFilters::DropShadow(dx, dy, sigmaX, sigmaY, ptrToSkColor4f(cPtr).toSkColor(), input);
+        }))
+        // Todo
+        .class_function("_MakeMatrixConvolution",optional_override([]()->sk_sp<SkImageFilter> {
+            SkISize kernelSize = SkISize::Make(3, 3);
+            SkScalar* kernel = new SkScalar[9];
+
+            for (int i=0; i<9; i++) {
+                kernel[i] = 0.5;
+            }
+            // {
+            //     SkIntToScalar( 0), SkIntToScalar( 0.5), SkIntToScalar( 0),
+            //     SkIntToScalar( 0.5), SkIntToScalar(0.5), SkIntToScalar( 0.5),
+            //     SkIntToScalar( 0), SkIntToScalar( 0.5), SkIntToScalar( 0),
+            // };
+            SkScalar gain = 1.0f, bias = SkIntToScalar(0);
+            SkIPoint kernelOffset = SkIPoint::Make(1, 1);
+            auto ret = SkImageFilters::MatrixConvolution(kernelSize, kernel, gain, bias, kernelOffset, SkTileMode::kClamp, true, nullptr);
+            delete kernel;
+            return ret;
         }));
 
     class_<SkMaskFilter>("MaskFilter")

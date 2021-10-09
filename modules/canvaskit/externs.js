@@ -137,6 +137,7 @@ var CanvasKit = {
     getWordBoundary: function() {},
     getShapedLines: function() {},
     layout: function() {},
+    getPath: function() {},
 
     // private API
     /** @return {Float32Array} */
@@ -155,6 +156,7 @@ var CanvasKit = {
     prototype: {
       pushStyle: function() {},
       pushPaintStyle: function() {},
+      pushFgPaintStyle: function() {},
       addPlaceholder: function() {},
     },
 
@@ -164,6 +166,7 @@ var CanvasKit = {
     _ShapeText: function() {},
     _pushStyle: function() {},
     _pushPaintStyle: function() {},
+    _pushFgPaintStyle: function() {},
     _addPlaceholder: function() {},
   },
 
@@ -230,6 +233,7 @@ var CanvasKit = {
       clear: function() {},
       clipRRect: function() {},
       clipRect: function() {},
+      quickReject: function() {},
       concat: function() {},
       drawArc: function() {},
       drawAtlas: function() {},
@@ -260,6 +264,7 @@ var CanvasKit = {
     _clear: function() {},
     _clipRRect: function() {},
     _clipRect: function() {},
+    _quickReject: function() {},
     _concat: function() {},
     _drawArc: function() {},
     _drawAtlasOptions: function() {},

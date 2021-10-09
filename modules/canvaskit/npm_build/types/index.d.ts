@@ -1088,6 +1088,14 @@ export interface Canvas extends EmbindObject<Canvas> {
     clipRRect(rrect: InputRRect, op: ClipOp, doAntiAlias: boolean): void;
 
     /**
+     * Returns true if InputRect, transformed by SkMatrix, can be quickly determined to be
+     * outside of clip. May return false even though rect is outside of clip.
+     * Used to check if an area to be drawn is clipped out, to skip subsequent draw calls.
+     * @param rect 
+     */
+    quickReject(rect: InputRect): boolean;
+
+    /**
      * Replaces current matrix with m premultiplied with the existing matrix.
      * @param m
      */
@@ -1236,7 +1244,7 @@ export interface Canvas extends EmbindObject<Canvas> {
      * @param paint
      * @param fastSample - if false, will filter strictly within src.
      */
-    drawImageRect(img: Image, src: InputRect, dest: InputRect, paint: Paint,
+    drawImageRect(img: Image, src: InputRect, dest: InputRect, paint: Paint | null,
                   fastSample?: boolean): void;
 
     /**
