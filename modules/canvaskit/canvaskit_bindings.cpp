@@ -1385,7 +1385,7 @@ EMSCRIPTEN_BINDINGS(Skia) {
             SkScalar gain = 1.0f, bias = SkIntToScalar(0);
             SkIPoint kernelOffset = SkIPoint::Make(1, 1);
             auto ret = SkImageFilters::MatrixConvolution(kernelSize, kernel, gain, bias, kernelOffset, SkTileMode::kClamp, true, nullptr);
-            delete kernel;
+            delete [] kernel;
             return ret;
         }));
 
@@ -2001,7 +2001,9 @@ EMSCRIPTEN_BINDINGS(Skia) {
 
     enum_<SkPathFillType>("FillType")
         .value("Winding",           SkPathFillType::kWinding)
-        .value("EvenOdd",           SkPathFillType::kEvenOdd);
+        .value("EvenOdd",           SkPathFillType::kEvenOdd)
+        .value("InverseWinding",    SkPathFillType::kInverseWinding)
+        .value("InverseEvenOdd",    SkPathFillType::kInverseEvenOdd);
 
     enum_<SkFilterMode>("FilterMode")
         .value("Nearest",   SkFilterMode::kNearest)

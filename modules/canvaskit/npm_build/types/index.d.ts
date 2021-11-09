@@ -3916,6 +3916,8 @@ export interface DecorationStyleEnumValues extends EmbindEnum {
 export interface FillTypeEnumValues extends EmbindEnum {
     Winding: FillType;
     EvenOdd: FillType;
+    InverseWinding: FillType;
+    InverseEvenOdd: FillType;
 }
 
 export interface FilterModeEnumValues extends EmbindEnum {
