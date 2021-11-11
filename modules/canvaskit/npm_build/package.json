@@ -1,5 +1,5 @@
 {
-  "name": "canvaskit-wasm",
+  "name": "@skeditor/canvaskit-wasm",
   "version": "0.28.1",
   "description": "A WASM version of Skia's Canvas API",
   "main": "bin/canvaskit.js",
@@ -9,7 +9,7 @@
   },
   "permsRepo": "skia-dev/.github",
   "publishConfig": {
-    "registry": "https://wombat-dressing-room.appspot.com"
+    "access": "public"
   },
   "scripts": {
     "dtslint": "dtslint types"
